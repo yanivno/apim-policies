@@ -1,0 +1,29 @@
+        <!-- <include-fragment fragment-id="openai-usage-streaming" /> -->
+        <!-- <include-fragment fragment-id="openai-usage" /> -->
+        <!-- Backend Managed Identity -->
+        <!-- uami modifcation -->
+        <choose>
+            <when condition="@(context.Variables.GetValueOrDefault<string>("routeName").Equals("aoai-1-qkojak7tombza"))">
+                <set-variable name="uami-client-id" value="d7795132-6738-4434-b530-17a8f4b74ec1" />
+            </when>
+            <when condition="@(context.Variables.GetValueOrDefault<string>("routeName").Equals("aoai-2-qkojak7tombza"))">
+                <set-variable name="uami-client-id" value="3f25ec8d-057f-41d7-bc62-90082999fc84" />
+            </when>
+            <when condition="@(context.Variables.GetValueOrDefault<string>("routeName").Equals("aoai-3-qkojak7tombza"))">
+                <set-variable name="uami-client-id" value="233341be-edd8-4c5e-9103-fe62013bb1c5" />
+            </when>
+            <otherwise>
+                <!-- default user for ynorman-gpt-swe -->
+                <set-variable name="uami-client-id" value="57880d92-757d-449e-b9e4-cfc4032c48c8" />
+            </otherwise>
+        </choose>
+        <authentication-managed-identity resource="https://cognitiveservices.azure.com" client-id="@((string)context.Variables.GetValueOrDefault<string>("uami-client-id"))" output-token-variable-name="msi-access-token" ignore-error="false" />
+        <!-- uami modification end -->
+        <set-header name="Authorization" exists-action="override">
+            <value>@("Bearer " + (string)context.Variables["msi-access-token"])</value>
+        </set-header
+
+
+        <set-header name="Authorization" exists-action="override">
+            <value>@("Bearer " + (string)context.Variables[(string)context.Variables["routeName"] + "-token"])</value>
+        </set-header>
