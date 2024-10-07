@@ -37,8 +37,8 @@ resource dynamicThrottlingFragment 'Microsoft.ApiManagement/service/policyFragme
   }
 }
 
-//with validation policies@2023-05-01-preview
-resource azureOpenAIApiPolicy 'Microsoft.ApiManagement/service/apis/policies@2022-08-01' = {
+
+resource azureOpenAIApiPolicy 'Microsoft.ApiManagement/service/apis/policies@2023-05-01-preview' = {
   parent: azureOpenAIApi
   name: 'policy'
   properties: {

@@ -1,3 +1,7 @@
+
+
+// running : az deployment group create  --template-file deploy.bicep  --resource-group apim-genai-wcus
+
 var apimName = 'apim-qkojak7tombza'
 
 //backends prefix
